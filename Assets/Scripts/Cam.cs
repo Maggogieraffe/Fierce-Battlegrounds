@@ -7,20 +7,23 @@ public class Cam : MonoBehaviour
 {
     CinemachineVirtualCamera cam;
     CinemachineComponentBase componentBase;
+    float zoomedDistance;
     void Start()
     {
         cam = GetComponent<CinemachineVirtualCamera>();
-        componentBase = cam.GetCinemachineComponent(CinemachineCore.Stage.Body);
     }
 
     // Update is called once per frame
     void Update()
     {
+        var componentBase = cam.GetCinemachineComponent(CinemachineCore.Stage.Body);
         Vector2 bal = Input.mouseScrollDelta;
-        print(bal);
-        if (componentBase is CinemachineFramingTransposer)
+        zoomedDistance -= bal.y;
+        zoomedDistance = Mathf.Clamp(zoomedDistance, 1, 10);
+        if (componentBase is Cinemachine3rdPersonFollow)
         {
-            (componentBase as CinemachineFramingTransposer).m_CameraDistance += bal.y; //CameraZoomDistance
+            (componentBase as Cinemachine3rdPersonFollow).CameraDistance = zoomedDistance;
+
         }
     }
 }

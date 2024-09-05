@@ -7661,7 +7661,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 1371802572}
   m_Follow: {fileID: 1371802572}
   m_Lens:
     FieldOfView: 60.000004
@@ -7690,8 +7690,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250001145}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.25290933, y: -0.39285937, z: 0.113312386, w: -0.8768459}
-  m_LocalPosition: {x: 0, y: 1.145, z: -2}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 1.145, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7710,6 +7710,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9ec4f6a7320114482d6f0e9b0e2f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAt: {fileID: 1371802572}
+  Player: {fileID: 1769351584}
+  distance: 10
+  sensivity: 4
 --- !u!1001 &250331830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21778,6 +21782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
+  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -21862,6 +21867,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &705507996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bb5816ccbad264db62df34b7f545fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonText: 
+  filePath: 
 --- !u!1001 &708196728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30319,7 +30338,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.145, z: -2}
+  m_LocalPosition: {x: 0.4, y: 1.145, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51056,10 +51075,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0}
-  ShoulderOffset: {x: 0, y: -0.4, z: 0}
+  ShoulderOffset: {x: 0.4, y: -0.4, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
-  CameraDistance: 2
+  CameraDistance: 4
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0
@@ -54178,6 +54197,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7389609277283658583, guid: dabc7c6eafef77344a88b8fc52670193, type: 3}
   m_PrefabInstance: {fileID: 1768892764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1769351584 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2639479847726886712, guid: 9492ee441520f1b4e8cfdaf7a57c3073, type: 3}
+  m_PrefabInstance: {fileID: 8625645578482681334}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1772201627
 PrefabInstance:
