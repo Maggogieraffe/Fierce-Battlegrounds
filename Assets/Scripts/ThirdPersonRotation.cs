@@ -51,31 +51,14 @@ public class ThirdPersonRotation : MonoBehaviour
         zoomedDistance += bal.y;
         zoomedDistance = Mathf.Clamp(zoomedDistance, -20, -1);
 
-        //if (!Detected)
-        //{
-        //savedZoomedDistance = zoomedDistance;
-        ///}
-
         _cam.transform.localPosition = new Vector3(0, 0, zoomedDistance);
     }
     private void WallDetection()
     {
         RaycastHit hit;
-        //if (Physics.Raycast(transform.position, -transform.forward, out hit, -zoomedDistance / 3.4f, Object))
-        //{
-        //Detected = true;
         if (Physics.Raycast(transform.position, -transform.forward, out hit, -zoomedDistance / 3.2f, Object))
         {
             zoomedDistance = Mathf.Clamp(zoomedDistance, -hit.distance * 3.2f, -1);
         }
-        //}
-        //else
-        //{
-        //    zoomedDistance = Mathf.Lerp(zoomedDistance, savedZoomedDistance, 1);
-        //    if (zoomedDistance == savedZoomedDistance)
-        //    {
-        //        Detected = false;
-        //    }
-        //}
     }
 }

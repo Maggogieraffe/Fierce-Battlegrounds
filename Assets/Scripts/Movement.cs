@@ -2,7 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-
+using UnityEngine.Playables;
+public enum PlayerState
+{
+    Idle = 0,
+    walking,
+    running,
+    ragdoll,
+    dead
+}
 public class Movement : MonoBehaviour
 {
     [Header("Mouse")]
@@ -13,48 +21,72 @@ public class Movement : MonoBehaviour
     [Header("Input")]
     public float horizontalInput;
     public float verticalInput;
-    private float _movementSpeed;
-    private Rigidbody _rB;
-    private float runningMultiplier;
 
     [Header("GroundCheck")]
     public LayerMask whatIsGround;
     private bool _grounded;
 
-        
+    [Header("Values")]
+    private float runningMultiplier;
+    private float _movementSpeed;
+
+    [Header("Combat")]
+    public bool HitStunned = false;
+    public bool IsRagdolled = false;
+
+    [Header("Other")]
+    private Animator _animator;
+    private PlayerState _playerState;
+    private Rigidbody _rB;
+    public List<Rigidbody> _rbodies;
+    [SerializeField] private bool _isDummy;
 
 
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _rB = GetComponent<Rigidbody>();
         _movementSpeed = 6f;
+        _playerState = PlayerState.Idle;
+        _animator.SetInteger("State", (int)_playerState);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Moving();
+        if (!_isDummy)
+        {
+            Moving();
 
-        MouseX += Input.GetAxis("Mouse X") * _MouseSensitivity;
-        MouseY -= Input.GetAxis("Mouse Y") * _MouseSensitivity;
+            MouseX += Input.GetAxis("Mouse X") * _MouseSensitivity;
+            MouseY -= Input.GetAxis("Mouse Y") * _MouseSensitivity;
 
-        //Rotating Camera around Player
-        transform.rotation = Quaternion.Euler(0, MouseX, 0);
+            //Rotating Camera around Player
+            transform.rotation = Quaternion.Euler(0, MouseX, 0);
+        }
     }
 
     private void Moving()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        
         if (verticalInput == 1)
         {
             runningMultiplier = 1.5f;
+            _playerState = PlayerState.running;
         }
-        else
+        else if (verticalInput == -1 || horizontalInput == 1 || horizontalInput == -1)
         {
             runningMultiplier = 1f;
+            _playerState = PlayerState.walking;
+
         }
+        else if (verticalInput == 0 && horizontalInput == 0)
+        {
+            _playerState = PlayerState.Idle;    
+        }
+        _animator.SetInteger("State", (int)_playerState);
 
         Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
 
@@ -69,5 +101,27 @@ public class Movement : MonoBehaviour
         {
             _rB.AddForce(Vector3.up * 13, ForceMode.Impulse);
         }
+    }
+    public void OnHit(float damage)
+    {
+        
+    }
+    public void Ragdolled()
+    {
+        _playerState = PlayerState.ragdoll;
+        _animator.enabled = false;
+        foreach (Rigidbody r in _rbodies)
+        {
+            r.isKinematic = false;
+        }
+        Invoke("UnRagdolled", 2f);
+    }
+    public void UnRagdolled()
+    {
+        foreach (Rigidbody r in _rbodies)
+        {
+            r.isKinematic = false;
+        }
+        _animator.enabled = true;
     }
 }

@@ -2,7 +2,7 @@
     "name": "Player",
     "maps": [
         {
-            "name": "Movement",
+            "name": "FirstMoveset",
             "id": "a5e04495-3e21-4f5f-9bce-a63554e9c69f",
             "actions": [
                 {
