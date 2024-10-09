@@ -8,14 +8,20 @@ public class FirstMoveset : MonoBehaviour
 {
     [SerializeField] private BoxCollider b_M1;
     public int o_M1;
-    private bool M1stun = false;
+    private bool _m1stun = false;
     private bool stun = false;
     private Movement target;
     [SerializeField] private bool _isDummy;
+    private Movement _movement;
+    private float _movementSpeed;
+    private bool _bM1Stun = false;
+    private float _m1resettimer;
+    private bool _m1resetbool;
 
     void Start()
     {
-
+        _movement = GetComponent<Movement>();
+        _movementSpeed = _movement._movementSpeed;
     }
 
     void Update()
@@ -27,41 +33,65 @@ public class FirstMoveset : MonoBehaviour
                 Mouse1();
             }
         }
+        if (!_bM1Stun && _m1stun)
+        {
+            _bM1Stun = true;
+            _movement._movementSpeed = _movementSpeed / 2;
+        }
+        else if (_bM1Stun && !_m1stun)
+        {
+            _bM1Stun = false;
+            _movement._movementSpeed = _movementSpeed;
+        }
+        if (_m1resetbool)
+        {
+            _m1resettimer += Time.deltaTime;
+            if (_m1resettimer >= 1)
+            {
+                _m1resettimer = 0;
+                o_M1 = 0;
+                _m1resetbool = false;
+            }
+        }
     }
     void Mouse1()
     {
-        if (!M1stun)
+        if (!_m1stun)
         {
             if (o_M1 == 0)
             {
-                M1stun = true;
+                _m1stun = true;
                 Invoke("M1Stun", 0.5f);
                 b_M1.enabled = true;
                 Invoke("Attack", 0.1f);
+                _m1resetbool = true;
             }
             if (o_M1 == 1)
             {
-                M1stun = true;
+                _m1stun = true;
                 Invoke("M1Stun", 0.5f);
                 b_M1.enabled = true;
                 Invoke("Attack", 0.1f);
+                _m1resettimer = 0;
 
             }
             if (o_M1 == 2)
             {
-                M1stun = true;
+                _m1stun = true;
                 Invoke("M1Stun", 0.5f);
                 b_M1.enabled = true;
                 Invoke("Attack", 0.1f);
-
+                _m1resettimer = 0;
             }
             if (o_M1 == 3)
             {
-                M1stun = true;
+                _m1stun = true;
                 Invoke("M1Stun", 0.5f);
                 b_M1.enabled = true;
                 Invoke("Attack", 0.1f);
                 Invoke("LastM1Stun", 1.5f);
+                _m1resettimer = 0;
+                _m1resetbool = false;
             }
             o_M1++;
         }
@@ -72,7 +102,7 @@ public class FirstMoveset : MonoBehaviour
     }
     void M1Stun()
     {
-        M1stun = false;
+        _m1stun = false;
     }
     void LastM1Stun()
     {

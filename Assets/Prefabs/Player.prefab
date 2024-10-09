@@ -67,6 +67,7 @@ MonoBehaviour:
     m_Bits: 64
   HitStunned: 0
   IsRagdolled: 0
+  _torso: {fileID: 4156783638906101832}
   _rbodies:
   - {fileID: 4463060627703125383}
   - {fileID: 5404642680446294474}

@@ -27,14 +27,15 @@ public class Movement : MonoBehaviour
     private bool _grounded;
 
     [Header("Values")]
+    public float _movementSpeed;
     private float runningMultiplier;
-    private float _movementSpeed;
 
     [Header("Combat")]
     public bool HitStunned = false;
     public bool IsRagdolled = false;
 
     [Header("Other")]
+    [SerializeField] private Transform _torso;
     private Animator _animator;
     private PlayerState _playerState;
     private Rigidbody _rB;
@@ -42,7 +43,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private bool _isDummy;
 
 
-    void Start()
+    void Awake()
     {
         _animator = GetComponent<Animator>();
         _rB = GetComponent<Rigidbody>();
@@ -118,6 +119,7 @@ public class Movement : MonoBehaviour
     }
     public void UnRagdolled()
     {
+        transform.position = _torso.position;
         foreach (Rigidbody r in _rbodies)
         {
             r.isKinematic = false;

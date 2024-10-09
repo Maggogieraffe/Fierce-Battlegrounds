@@ -12,9 +12,7 @@ public class ThirdPersonRotation : MonoBehaviour
     [SerializeField] private LayerMask Object;
     [SerializeField] private Transform _Follow;
     [SerializeField] private float _MouseSensitivity = 5;
-    [SerializeField] private float _Sensitivity = 2;
 
-    private bool Detected = false;
     private Camera _cam;
     private RaycastHit hit;
 
