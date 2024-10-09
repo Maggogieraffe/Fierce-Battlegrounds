@@ -31282,7 +31282,6 @@ MonoBehaviour:
     m_Bits: 64
   _Follow: {fileID: 8625645578482681335}
   _MouseSensitivity: 5
-  _Sensitivity: 2
 --- !u!4 &935754714
 Transform:
   m_ObjectHideFlags: 0

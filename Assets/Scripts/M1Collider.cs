@@ -34,7 +34,7 @@ public class M1Collider : MonoBehaviour
                 Invoke("CollidedOn", 0.2f);
                 _movement.Ragdolled();
                 _movement.OnHit(4);
-
+                _moveset._hitTarget = true;
                 foreach (Rigidbody r in _bodies)
                 {
                     r.AddForce(transform.forward * 200);

@@ -64,8 +64,8 @@ public class Movement : MonoBehaviour
             MouseY -= Input.GetAxis("Mouse Y") * _MouseSensitivity;
 
             //Rotating Camera around Player
-            transform.rotation = Quaternion.Euler(0, MouseX, 0);
         }
+        transform.rotation = Quaternion.Euler(0, MouseX, 0);
     }
 
     private void Moving()
@@ -119,7 +119,10 @@ public class Movement : MonoBehaviour
     }
     public void UnRagdolled()
     {
-        transform.position = _torso.position;
+        RaycastHit hit;
+        Physics.Raycast(_torso.position, Vector3.down, out hit, Mathf.Infinity, whatIsGround);
+        hit.point = hit.point + Vector3.up * 0.05f;
+        transform.position = hit.point;
         foreach (Rigidbody r in _rbodies)
         {
             r.isKinematic = false;

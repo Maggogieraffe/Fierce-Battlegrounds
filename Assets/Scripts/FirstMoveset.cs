@@ -17,6 +17,7 @@ public class FirstMoveset : MonoBehaviour
     private bool _bM1Stun = false;
     private float _m1resettimer;
     private bool _m1resetbool;
+    public bool _hitTarget = false;
 
     void Start()
     {
@@ -87,6 +88,7 @@ public class FirstMoveset : MonoBehaviour
             {
                 _m1stun = true;
                 Invoke("M1Stun", 0.5f);
+                Invoke("DidHit", 0.5f);
                 b_M1.enabled = true;
                 Invoke("Attack", 0.1f);
                 Invoke("LastM1Stun", 1.5f);
@@ -96,13 +98,28 @@ public class FirstMoveset : MonoBehaviour
             o_M1++;
         }
     }
-    void Attack()
-    {
-        b_M1.enabled = false;
-    }
     void M1Stun()
     {
         _m1stun = false;
+    }
+    void DidHit()
+    {
+        if (!_hitTarget)
+        {
+            _movement._movementSpeed = 0;
+        }
+        Invoke("OutHit", 1f);
+        _m1stun = true;
+    }
+    void OutHit()
+    {
+        _movement._movementSpeed = _movementSpeed;
+        _m1stun = false;
+        _hitTarget = false;
+    }
+    void Attack()
+    {
+        b_M1.enabled = false;
     }
     void LastM1Stun()
     {
