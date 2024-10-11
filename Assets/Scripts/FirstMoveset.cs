@@ -18,11 +18,13 @@ public class FirstMoveset : MonoBehaviour
     private float _m1resettimer;
     private bool _m1resetbool;
     public bool _hitTarget = false;
+    private Animator _animator;
 
-    void Start()
+    void Start()    
     {
         _movement = GetComponent<Movement>();
         _movementSpeed = _movement._movementSpeed;
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -59,43 +61,48 @@ public class FirstMoveset : MonoBehaviour
     {
         if (!_m1stun)
         {
-            if (o_M1 == 0)
+            // Trigger the corresponding attack animation
+            switch (o_M1)
             {
-                _m1stun = true;
-                Invoke("M1Stun", 0.5f);
-                b_M1.enabled = true;
-                Invoke("Attack", 0.1f);
-                _m1resetbool = true;
+                case 0:
+                    _animator.SetTrigger("Attack1"); // First attack animation
+                    _m1stun = true;
+                    Invoke("M1Stun", 0.5f);
+                    Invoke("EnableCollider", 0.2f);
+                    Invoke("DisableCollider", 0.3f);
+                    _m1resetbool = true;
+                    o_M1++;
+                    break;
+                case 1:
+                    _animator.SetTrigger("Attack2"); // Second attack animation
+                    _m1stun = true;
+                    Invoke("M1Stun", 0.5f);
+                    Invoke("EnableCollider", 0.2f);
+                    Invoke("DisableCollider", 0.3f);
+                    _m1resettimer = 0;
+                    o_M1++;
+                    break;
+                case 2:
+                    _animator.SetTrigger("Attack3"); // Third attack animation
+                    _m1stun = true;
+                    Invoke("M1Stun", 0.5f);
+                    Invoke("EnableCollider", 0.2f);
+                    Invoke("DisableCollider", 0.3f);
+                    _m1resettimer = 0;
+                    o_M1++;
+                    break;
+                case 3:
+                    _animator.SetTrigger("Attack4"); // Fourth attack animation (finisher)
+                    _m1stun = true;
+                    Invoke("M1Stun", 0.5f);
+                    Invoke("DidHit", 0.5f);
+                    Invoke("EnableCollider", 0.2f);
+                    Invoke("DisableCollider", 0.3f);
+                    Invoke("LastM1Stun", 1.5f);
+                    _m1resettimer = 0;
+                    o_M1++;
+                    break;
             }
-            if (o_M1 == 1)
-            {
-                _m1stun = true;
-                Invoke("M1Stun", 0.5f);
-                b_M1.enabled = true;
-                Invoke("Attack", 0.1f);
-                _m1resettimer = 0;
-
-            }
-            if (o_M1 == 2)
-            {
-                _m1stun = true;
-                Invoke("M1Stun", 0.5f);
-                b_M1.enabled = true;
-                Invoke("Attack", 0.1f);
-                _m1resettimer = 0;
-            }
-            if (o_M1 == 3)
-            {
-                _m1stun = true;
-                Invoke("M1Stun", 0.5f);
-                Invoke("DidHit", 0.5f);
-                b_M1.enabled = true;
-                Invoke("Attack", 0.1f);
-                Invoke("LastM1Stun", 1.5f);
-                _m1resettimer = 0;
-                _m1resetbool = false;
-            }
-            o_M1++;
         }
     }
     void M1Stun()
@@ -117,12 +124,17 @@ public class FirstMoveset : MonoBehaviour
         _m1stun = false;
         _hitTarget = false;
     }
-    void Attack()
+    void EnableCollider()
+    {
+        b_M1.enabled = true;
+    }
+    void DisableCollider()
     {
         b_M1.enabled = false;
     }
     void LastM1Stun()
     {
         o_M1 = 0;
+        _m1resetbool = false;
     }
 }

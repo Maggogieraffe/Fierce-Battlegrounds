@@ -37,7 +37,7 @@ public class M1Collider : MonoBehaviour
                 _moveset._hitTarget = true;
                 foreach (Rigidbody r in _bodies)
                 {
-                    r.AddForce(transform.forward * 200);
+                    r.AddForce(transform.forward * 800);
                 }
             }
             _bodies.Clear();
