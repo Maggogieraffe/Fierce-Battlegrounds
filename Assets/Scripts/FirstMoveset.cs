@@ -16,7 +16,7 @@ public class FirstMoveset : MonoBehaviour
     private float _movementSpeed;
     private bool _bM1Stun = false;
     private float _m1resettimer;
-    private bool _m1resetbool;
+    public bool _m1resetbool = false;
     public bool _hitTarget = false;
     private Animator _animator;
 
@@ -67,40 +67,36 @@ public class FirstMoveset : MonoBehaviour
                 case 0:
                     _animator.SetTrigger("Attack1"); // First attack animation
                     _m1stun = true;
-                    Invoke("M1Stun", 0.5f);
+                    Invoke("M1Stun", .5f);
                     Invoke("EnableCollider", 0.2f);
                     Invoke("DisableCollider", 0.3f);
                     _m1resetbool = true;
-                    o_M1++;
                     break;
                 case 1:
                     _animator.SetTrigger("Attack2"); // Second attack animation
                     _m1stun = true;
-                    Invoke("M1Stun", 0.5f);
+                    Invoke("M1Stun", .5f);
                     Invoke("EnableCollider", 0.2f);
                     Invoke("DisableCollider", 0.3f);
                     _m1resettimer = 0;
-                    o_M1++;
                     break;
                 case 2:
                     _animator.SetTrigger("Attack3"); // Third attack animation
                     _m1stun = true;
-                    Invoke("M1Stun", 0.5f);
+                    Invoke("M1Stun", .5f);
                     Invoke("EnableCollider", 0.2f);
                     Invoke("DisableCollider", 0.3f);
                     _m1resettimer = 0;
-                    o_M1++;
                     break;
                 case 3:
                     _animator.SetTrigger("Attack4"); // Fourth attack animation (finisher)
                     _m1stun = true;
-                    Invoke("M1Stun", 0.5f);
-                    Invoke("DidHit", 0.5f);
+                    Invoke("M1Stun", .5f);
+                    Invoke("DidHit", .5f);
                     Invoke("EnableCollider", 0.2f);
                     Invoke("DisableCollider", 0.3f);
                     Invoke("LastM1Stun", 1.5f);
                     _m1resettimer = 0;
-                    o_M1++;
                     break;
             }
         }
@@ -108,6 +104,7 @@ public class FirstMoveset : MonoBehaviour
     void M1Stun()
     {
         _m1stun = false;
+        o_M1++;
     }
     void DidHit()
     {

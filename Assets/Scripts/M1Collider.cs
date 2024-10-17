@@ -16,20 +16,22 @@ public class M1Collider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            print(other.name);
             foreach (Rigidbody r in other.GetComponentsInChildren<Rigidbody>())
             {
                 _bodies.Add(r);
             }
             _movement = other.GetComponent<Movement>();
-            if (!_hascollided && _moveset.o_M1 < 4)
+            if (!_hascollided && _moveset.o_M1 < 3)
             {
                 _hascollided = true;
                 Invoke("CollidedOn", 0.2f);
                 _movement.OnHit(4);
             }
 
-            else if (!_hascollided && _moveset.o_M1 == 4)
+            else if (!_hascollided && _moveset.o_M1 == 3)
             {
+                print("Omae Wa...");
                 _hascollided = true;
                 Invoke("CollidedOn", 0.2f);
                 _movement.Ragdolled();

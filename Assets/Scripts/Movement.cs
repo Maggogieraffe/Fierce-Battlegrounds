@@ -9,6 +9,7 @@ public enum PlayerState
     walking,
     running,
     ragdoll,
+    attack,
     dead
 }
 public class Movement : MonoBehaviour
@@ -35,6 +36,7 @@ public class Movement : MonoBehaviour
     public bool IsRagdolled = false;
 
     [Header("Other")]
+    private FirstMoveset _moveSet;
     [SerializeField] private Transform _torso;
     private Animator _animator;
     private PlayerState _playerState;
@@ -50,6 +52,7 @@ public class Movement : MonoBehaviour
         _movementSpeed = 6f;
         _playerState = PlayerState.Idle;
         _animator.SetInteger("State", (int)_playerState);
+        _moveSet = GetComponent<FirstMoveset>();
 
     }
 
@@ -87,6 +90,10 @@ public class Movement : MonoBehaviour
         {
             _playerState = PlayerState.Idle;    
         }
+        //if (_moveSet._m1resetbool && _animator.)
+        //{
+        //    _playerState = PlayerState.attack;
+        //}
         _animator.SetInteger("State", (int)_playerState);
 
         Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
