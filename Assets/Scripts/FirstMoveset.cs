@@ -16,10 +16,19 @@ public class FirstMoveset : MonoBehaviour
     private float _movementSpeed;
     private bool _bM1Stun = false;
     private float _m1resettimer;
+    private float horizontalInput;
+    private float verticalInput;
     public bool _m1resetbool = false;
     public bool _hitTarget = false;
     private Animator _animator;
 
+    private bool _frontDash;
+    private bool _backDash;
+    private bool _leftDash;
+    private bool _rightDash;
+
+    public float secondsToRotate = 2.0f;
+    private float secondsSoFar = 0.0f;
     void Start()    
     {
         _movement = GetComponent<Movement>();
@@ -29,6 +38,12 @@ public class FirstMoveset : MonoBehaviour
 
     void Update()
     {
+        secondsSoFar += Time.deltaTime;
+        float t = secondsSoFar / secondsToRotate;
+
+        Vector3 lerpPoint = Vector3.Lerp(transform.position, end, t);
+        transform.rotation = Quaternion.LookRotation(lerpPoint);
+
         if (!_isDummy)
         {
             if (Input.GetMouseButton(0))
@@ -55,6 +70,36 @@ public class FirstMoveset : MonoBehaviour
                 o_M1 = 0;
                 _m1resetbool = false;
             }
+        }
+    }
+    void OnDash()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        if (horizontalInput == 1)
+        {
+            //front
+            _frontDash = true;
+        }
+        else if (horizontalInput == -1)
+        {
+            //back
+            _backDash = true;
+        }
+        else if (verticalInput == 1)
+        {
+            //right
+            _rightDash = true;
+        }
+        else if (verticalInput == -1)
+        {
+            //left
+            _leftDash = true;
+        }
+        else
+        {
+            //front
+            _frontDash = true;
         }
     }
     void Mouse1()

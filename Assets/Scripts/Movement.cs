@@ -75,6 +75,7 @@ public class Movement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        print(horizontalInput);
         if (verticalInput == 1)
         {
             runningMultiplier = 1.5f;
