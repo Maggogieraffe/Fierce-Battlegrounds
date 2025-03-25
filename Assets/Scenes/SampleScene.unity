@@ -31159,7 +31159,7 @@ MonoBehaviour:
   savedZoomedDistance: 0
   Object:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   _Follow: {fileID: 8625645578482681335}
   _MouseSensitivity: 5
 --- !u!4 &935754714

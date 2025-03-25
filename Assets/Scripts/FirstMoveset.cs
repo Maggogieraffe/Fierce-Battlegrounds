@@ -41,8 +41,8 @@ public class FirstMoveset : MonoBehaviour
         secondsSoFar += Time.deltaTime;
         float t = secondsSoFar / secondsToRotate;
 
-        Vector3 lerpPoint = Vector3.Lerp(transform.position, end, t);
-        transform.rotation = Quaternion.LookRotation(lerpPoint);
+        //Vector3 lerpPoint = Vector3.Lerp(transform.position, end, t);
+        //transform.rotation = Quaternion.LookRotation(lerpPoint);
 
         if (!_isDummy)
         {
